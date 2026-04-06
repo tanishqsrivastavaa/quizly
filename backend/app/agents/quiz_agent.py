@@ -8,7 +8,10 @@ from sqlmodel import Session
 
 from backend.app.db.models import QuizSession, SessionStatus, TranscriptTurn
 from backend.app.services.llm import LLMService
-from backend.app.services.metrics import quiz_score_distribution, session_completion_total
+from backend.app.services.metrics import (
+    quiz_score_distribution,
+    session_completion_total,
+)
 from backend.app.services.retrieval import RetrieverService
 
 
@@ -51,7 +54,9 @@ class QuizGraphRunner:
         return workflow.compile()
 
     def initial_question(self, quiz_session: QuizSession) -> str:
-        context = self.retriever.retrieve_for_session(quiz_session, quiz_session.topic or "overview")
+        context = self.retriever.retrieve_for_session(
+            quiz_session, quiz_session.topic or "overview"
+        )
         question = self.llm.generate_question(
             topic=quiz_session.topic or "the uploaded document",
             context=context,
@@ -66,7 +71,8 @@ class QuizGraphRunner:
     def run_turn(self, quiz_session: QuizSession, answer: str) -> dict:
         state: QuizState = {
             "session_id": str(quiz_session.id),
-            "question": quiz_session.current_question or "Explain the topic fundamentals.",
+            "question": quiz_session.current_question
+            or "Explain the topic fundamentals.",
             "answer": answer,
             "difficulty": "medium",
         }
@@ -76,8 +82,12 @@ class QuizGraphRunner:
         quiz_session.last_score = score
         quiz_session.current_question = result["next_question"]
         quiz_session.turns_completed += 1
-        quiz_session.mastery_map = self._updated_mastery(quiz_session.mastery_map, score)
-        quiz_session.status = SessionStatus.COMPLETED if result["completed"] else SessionStatus.ACTIVE
+        quiz_session.mastery_map = self._updated_mastery(
+            quiz_session.mastery_map, score
+        )
+        quiz_session.status = (
+            SessionStatus.COMPLETED if result["completed"] else SessionStatus.ACTIVE
+        )
         self.session.add(quiz_session)
         self.session.commit()
         self.session.refresh(quiz_session)
@@ -86,6 +96,8 @@ class QuizGraphRunner:
         if quiz_session.status == SessionStatus.COMPLETED:
             session_completion_total.inc()
 
+        from backend.app.schemas.quiz import QuizSessionRead
+
         return {
             "session_id": quiz_session.id,
             "score": score,
@@ -93,6 +105,7 @@ class QuizGraphRunner:
             "hint": result.get("hint"),
             "next_question": result["next_question"],
             "completed": result["completed"],
+            "session_updated": QuizSessionRead.model_validate(quiz_session),
         }
 
     def retrieve_context(self, state: QuizState) -> QuizState:
@@ -116,7 +129,10 @@ class QuizGraphRunner:
     def adaptive_decision(self, state: QuizState) -> QuizState:
         score = state["score"]
         if score < 0.5:
-            hint = state.get("hint") or "Break the concept into smaller parts and define key terms."
+            hint = (
+                state.get("hint")
+                or "Break the concept into smaller parts and define key terms."
+            )
             return {"difficulty": "easy", "hint": hint}
         if score <= 0.8:
             return {"difficulty": "medium"}
@@ -153,7 +169,9 @@ class QuizGraphRunner:
         quiz_session = self._load_session(state["session_id"])
         mastery_values = list((quiz_session.mastery_map or {}).values())
         enough_turns = quiz_session.turns_completed + 1 >= 4
-        mastery_threshold = mastery_values and (sum(mastery_values) / len(mastery_values)) >= 0.8
+        mastery_threshold = (
+            mastery_values and (sum(mastery_values) / len(mastery_values)) >= 0.8
+        )
         return {"completed": bool(enough_turns and mastery_threshold)}
 
     def _load_session(self, session_id: str) -> QuizSession:
@@ -163,7 +181,9 @@ class QuizGraphRunner:
         return quiz_session
 
     @staticmethod
-    def _updated_mastery(mastery_map: dict[str, float], score: float) -> dict[str, float]:
+    def _updated_mastery(
+        mastery_map: dict[str, float], score: float
+    ) -> dict[str, float]:
         current = dict(mastery_map or {})
         key = "overall"
         previous = current.get(key, 0.0)
