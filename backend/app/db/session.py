@@ -7,8 +7,12 @@ from backend.app.core.config import get_settings
 
 def _create_engine():
     settings = get_settings()
-    connect_args = {"check_same_thread": False} if settings.database_uri.startswith("sqlite") else {}
-    return create_engine(settings.database_uri, pool_pre_ping=True, connect_args=connect_args)
+    db_uri = settings.database_uri
+    # Convert postgresql:// to postgresql+psycopg:// for psycopg3
+    if db_uri.startswith("postgresql://"):
+        db_uri = db_uri.replace("postgresql://", "postgresql+psycopg://", 1)
+    connect_args = {"check_same_thread": False} if db_uri.startswith("sqlite") else {}
+    return create_engine(db_uri, pool_pre_ping=True, connect_args=connect_args)
 
 
 engine = _create_engine()
