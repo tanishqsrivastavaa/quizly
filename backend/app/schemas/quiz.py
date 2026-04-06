@@ -53,6 +53,7 @@ class QuizTurnResponse(BaseModel):
     hint: str | None
     next_question: str
     completed: bool
+    session_updated: QuizSessionRead
 
 
 class TranscriptRead(BaseModel):
