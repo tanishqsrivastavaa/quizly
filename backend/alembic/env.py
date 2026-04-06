@@ -2,16 +2,25 @@ from __future__ import annotations
 
 import os
 from logging.config import fileConfig
+from pathlib import Path
 
 from alembic import context
+from dotenv import load_dotenv
 from sqlalchemy import engine_from_config, pool
 from sqlmodel import SQLModel
 
 from backend.app.db import models  # noqa: F401
 
+# Load .env file
+env_path = Path(__file__).parent.parent.parent / ".env"
+load_dotenv(env_path)
+
 config = context.config
 db_uri = os.getenv("DATABASE_URI")
 if db_uri:
+    # Convert postgresql:// to postgresql+psycopg:// for psycopg3
+    if db_uri.startswith("postgresql://"):
+        db_uri = db_uri.replace("postgresql://", "postgresql+psycopg://", 1)
     config.set_main_option("sqlalchemy.url", db_uri)
 
 if config.config_file_name is not None:
@@ -41,7 +50,9 @@ def run_migrations_online() -> None:
     )
 
     with connectable.connect() as connection:
-        context.configure(connection=connection, target_metadata=target_metadata, compare_type=True)
+        context.configure(
+            connection=connection, target_metadata=target_metadata, compare_type=True
+        )
         with context.begin_transaction():
             context.run_migrations()
 
