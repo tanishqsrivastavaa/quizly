@@ -1,0 +1,229 @@
+.quiz-container {
+  min-height: 100vh;
+  background-color: var(--bg-color);
+}
+
+.quiz-header {
+  background: white;
+  padding: 1.5rem 2rem;
+  box-shadow: var(--shadow);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.quiz-info h1 {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.session-details {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.topic {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.turns {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.quiz-main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.feedback-panel {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  margin-bottom: 2rem;
+  border-left: 4px solid var(--primary-color);
+}
+
+.score-display {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.score-label {
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.score-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+}
+
+.score-0, .score-1, .score-2, .score-3 { background: #fee2e2; color: var(--danger-color); }
+.score-4, .score-5, .score-6 { background: #fed7aa; color: var(--warning-color); }
+.score-7, .score-8, .score-9, .score-10 { background: #d1fae5; color: var(--success-color); }
+
+.rationale {
+  margin-bottom: 1rem;
+}
+
+.rationale strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.rationale p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.hint {
+  background: #fef3c7;
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 3px solid var(--warning-color);
+}
+
+.hint strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.hint p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.question-panel {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  margin-bottom: 2rem;
+}
+
+.question-panel h2 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.question-text {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--text-primary);
+}
+
+.answer-form {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  margin-bottom: 2rem;
+}
+
+.answer-form label {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.answer-form textarea {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  resize: vertical;
+  margin-bottom: 1rem;
+}
+
+.answer-form textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.answer-form button {
+  width: 100%;
+}
+
+.transcript-panel {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+
+.transcript-panel h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-primary);
+}
+
+.transcript-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.transcript-entry {
+  padding: 1.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-color);
+}
+
+.transcript-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.turn-number {
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.transcript-entry .score {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.transcript-q,
+.transcript-a {
+  margin-bottom: 0.75rem;
+}
+
+.transcript-q strong,
+.transcript-a strong {
+  color: var(--primary-color);
+  margin-right: 0.5rem;
+}
+
+.transcript-feedback {
+  margin-top: 0.75rem;
+  padding: 0.75rem;
+  background: white;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
