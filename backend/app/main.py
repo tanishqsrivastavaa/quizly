@@ -4,6 +4,7 @@ import logging
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from backend.app.api.v1.router import api_router
 from backend.app.core.config import get_settings
@@ -23,7 +24,11 @@ def configure_logging() -> None:
     root_logger.setLevel(logging.INFO)
     if not root_logger.handlers:
         handler = logging.StreamHandler()
-        handler.setFormatter(logging.Formatter("%(asctime)s %(levelname)s [%(request_id)s] %(name)s: %(message)s"))
+        handler.setFormatter(
+            logging.Formatter(
+                "%(asctime)s %(levelname)s [%(request_id)s] %(name)s: %(message)s"
+            )
+        )
         handler.addFilter(RequestIDFilter())
         root_logger.addHandler(handler)
 
@@ -41,6 +46,16 @@ def create_app() -> FastAPI:
     settings = get_settings()
     configure_logging()
     app = FastAPI(title=settings.app_name, debug=settings.debug, lifespan=lifespan)
+
+    # CORS middleware
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["http://localhost:5173", "http://localhost:3000"],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+
     app.add_middleware(RequestIDMiddleware)
     app.add_middleware(RateLimitMiddleware)
     app.include_router(api_router, prefix=settings.api_v1_prefix)
