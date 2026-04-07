@@ -85,7 +85,10 @@ const Quiz: React.FC = () => {
   if (loading) {
     return (
       <div className="quiz-container">
-        <div className="loading">Loading quiz...</div>
+        <div className="loading-container">
+          <div className="spinner-large"></div>
+          <p>Loading quiz session...</p>
+        </div>
       </div>
     );
   }
@@ -93,7 +96,16 @@ const Quiz: React.FC = () => {
   if (!session) {
     return (
       <div className="quiz-container">
-        <div className="error">Quiz session not found</div>
+        <div className="error-container">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 8v4M12 16h.01" />
+          </svg>
+          <h2>Quiz session not found</h2>
+          <button onClick={() => navigate('/')} className="btn-primary">
+            Go Back Home
+          </button>
+        </div>
       </div>
     );
   }
