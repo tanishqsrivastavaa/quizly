@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
 import { documentApi, quizApi } from '../lib/api';
 import type { Document } from '../types/api';
 import '../styles/Home.css';
 
 const Home: React.FC = () => {
-  const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [documents, setDocuments] = useState<Document[]>([]);
   const [uploading, setUploading] = useState(false);
@@ -15,9 +13,9 @@ const Home: React.FC = () => {
   const [topic, setTopic] = useState('');
   const [selectedDocId, setSelectedDocId] = useState('');
   const [loading, setLoading] = useState(false);
-  
-  const pollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const cleanupTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const pollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const cleanupTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     loadDocuments();
@@ -67,7 +65,7 @@ const Home: React.FC = () => {
     try {
       const doc = await documentApi.upload(file);
       setUploadProgress('Processing document...');
-      
+
       // Poll for completion with max attempts (5 minutes at 2-second intervals)
       const MAX_POLLING_ATTEMPTS = 150;
       let attemptCount = 0;
@@ -85,7 +83,7 @@ const Home: React.FC = () => {
 
           attemptCount++;
           const updatedDoc = await documentApi.get(doc.id);
-          
+
           if (updatedDoc.status === 'completed') {
             setUploadProgress('Document ready!');
             await loadDocuments();
@@ -109,7 +107,7 @@ const Home: React.FC = () => {
           pollTimeoutRef.current = setTimeout(checkStatus, 2000);
         }
       };
-      
+
       checkStatus();
     } catch (error: any) {
       setUploadProgress('Upload failed');
@@ -151,14 +149,6 @@ const Home: React.FC = () => {
 
   return (
     <div className="home-container">
-      <header className="home-header">
-        <h1>Quizly</h1>
-        <div className="user-info">
-          <span>{user?.email}</span>
-          <button onClick={logout} className="btn-secondary">Logout</button>
-        </div>
-      </header>
-
       <main className="home-main">
         <div className="welcome-section">
           <h2>Welcome to Quizly</h2>
@@ -167,7 +157,7 @@ const Home: React.FC = () => {
 
         <div className="quiz-setup">
           <h3>Start a New Quiz</h3>
-          
+
           <div className="mode-selector">
             <button
               className={`mode-btn ${selectedMode === 'prompt' ? 'active' : ''}`}
