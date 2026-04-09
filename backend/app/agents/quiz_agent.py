@@ -1,10 +1,11 @@
 from __future__ import annotations
 
+import re
 from typing import TypedDict
 from uuid import UUID
 
 from langgraph.graph import END, StateGraph
-from sqlmodel import Session
+from sqlmodel import Session, select
 
 from backend.app.db.models import QuizSession, SessionStatus, TranscriptTurn
 from backend.app.services.llm import LLMService
@@ -57,8 +58,8 @@ class QuizGraphRunner:
         context = self.retriever.retrieve_for_session(
             quiz_session, quiz_session.topic or "overview"
         )
-        question = self.llm.generate_question(
-            topic=quiz_session.topic or "the uploaded document",
+        question = self._generate_non_repeating_question(
+            quiz_session=quiz_session,
             context=context,
             difficulty="medium",
         )
@@ -140,9 +141,8 @@ class QuizGraphRunner:
 
     def generate_question(self, state: QuizState) -> QuizState:
         quiz_session = self._load_session(state["session_id"])
-        topic = quiz_session.topic or "the document topic"
-        next_question = self.llm.generate_question(
-            topic=topic,
+        next_question = self._generate_non_repeating_question(
+            quiz_session=quiz_session,
             context=state["context"],
             difficulty=state.get("difficulty", "medium"),
         )
@@ -189,3 +189,94 @@ class QuizGraphRunner:
         previous = current.get(key, 0.0)
         current[key] = round((previous + score) / 2 if previous else score, 2)
         return current
+
+    def _generate_non_repeating_question(
+        self, quiz_session: QuizSession, context: str, difficulty: str
+    ) -> str:
+        topic = quiz_session.topic or "the document topic"
+        previous_questions = self._previous_questions(quiz_session)
+        recent_feedback = self._recent_feedback(quiz_session)
+
+        candidate = ""
+        for _ in range(4):
+            candidate = self.llm.generate_question(
+                topic=topic,
+                context=context,
+                difficulty=difficulty,
+                asked_questions=previous_questions,
+                recent_feedback=recent_feedback,
+            )
+            if not self._is_repeated_question(candidate, previous_questions):
+                return candidate
+        return candidate
+
+    def _previous_questions(self, quiz_session: QuizSession) -> list[str]:
+        turns = self.session.exec(
+            select(TranscriptTurn)
+            .where(TranscriptTurn.session_id == quiz_session.id)
+            .order_by(TranscriptTurn.turn_index)
+        ).all()
+        questions = [turn.question for turn in turns if turn.question]
+        if quiz_session.current_question:
+            questions.append(quiz_session.current_question)
+        return questions
+
+    def _recent_feedback(
+        self, quiz_session: QuizSession
+    ) -> list[dict[str, str | float]]:
+        turns = self.session.exec(
+            select(TranscriptTurn)
+            .where(TranscriptTurn.session_id == quiz_session.id)
+            .order_by(TranscriptTurn.turn_index.desc())
+            .limit(4)
+        ).all()
+        turns.reverse()
+        return [{"question": turn.question, "score": turn.score} for turn in turns]
+
+    @staticmethod
+    def _is_repeated_question(candidate: str, previous_questions: list[str]) -> bool:
+        normalized_candidate = QuizGraphRunner._normalize_question(candidate)
+        if not normalized_candidate:
+            return True
+        for previous in previous_questions[-8:]:
+            normalized_previous = QuizGraphRunner._normalize_question(previous)
+            if normalized_candidate == normalized_previous:
+                return True
+            overlap = set(normalized_candidate.split()).intersection(
+                normalized_previous.split()
+            )
+            similarity = len(overlap) / max(
+                1,
+                len(
+                    set(normalized_candidate.split()).union(normalized_previous.split())
+                ),
+            )
+            if similarity >= 0.82:
+                return True
+        return False
+
+    @staticmethod
+    def _normalize_question(value: str) -> str:
+        cleaned = re.sub(r"[^a-z0-9\s]", "", value.lower())
+        cleaned = re.sub(r"\s+", " ", cleaned).strip()
+        stop_words = {
+            "what",
+            "which",
+            "how",
+            "why",
+            "is",
+            "the",
+            "a",
+            "an",
+            "in",
+            "of",
+            "to",
+            "and",
+            "does",
+            "do",
+            "used",
+            "term",
+            "describe",
+        }
+        tokens = [token for token in cleaned.split() if token not in stop_words]
+        return " ".join(tokens)
