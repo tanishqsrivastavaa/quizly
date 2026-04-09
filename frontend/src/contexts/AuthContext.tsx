@@ -44,7 +44,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const register = async (email: string, password: string) => {
-    const data: AuthResponse = await authApi.register(email, password);
+    await authApi.register(email, password);
+    const data: AuthResponse = await authApi.login(email, password);
     localStorage.setItem('access_token', data.access_token);
     localStorage.setItem('refresh_token', data.refresh_token);
     const userData = await authApi.getMe();

@@ -181,7 +181,7 @@ const Quiz: React.FC = () => {
               {transcript.map((entry) => (
                 <div key={entry.id} className="transcript-entry">
                   <div className="transcript-header">
-                    <span className="turn-number">Turn {entry.turn_index + 1}</span>
+                    <span className="turn-number">Turn {entry.turn_index}</span>
                     <span className={`score score-${Math.round(entry.score * 10)}`}>
                       {(entry.score * 100).toFixed(0)}%
                     </span>

@@ -11,7 +11,7 @@ import type {
   TranscriptEntry,
 } from '../types/api';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+const API_BASE_URL = (import.meta.env.VITE_API_URL || 'https://quizly-backend-v22l.onrender.com').replace(/\/$/, '');
 
 const api = axios.create({
   baseURL: `${API_BASE_URL}/v1`,
@@ -65,8 +65,8 @@ api.interceptors.response.use(
 
 // Auth APIs
 export const authApi = {
-  register: async (email: string, password: string): Promise<AuthResponse> => {
-    const response = await api.post<AuthResponse>('/auth/register', { email, password });
+  register: async (email: string, password: string): Promise<User> => {
+    const response = await api.post<User>('/auth/register', { email, password });
     return response.data;
   },
   
