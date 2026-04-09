@@ -23,6 +23,7 @@ COPY . /app
 # Render may override the Docker CMD and invoke /app/.venv/bin/uvicorn directly.
 # Keep that path valid without invoking uv at runtime.
 RUN mkdir -p /app/.venv/bin \
+    && ln -sfn /app /app/backend \
     && printf '#!/bin/sh\nexec /app/.venv/bin/python -m uvicorn "$@"\n' > /app/.venv/bin/uvicorn \
     && chmod +x /app/.venv/bin/uvicorn
 
