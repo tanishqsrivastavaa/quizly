@@ -11,14 +11,11 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
 
   if (loading) {
     return (
-      <div style={{ 
-        display: 'flex', 
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        height: '100vh',
-        fontSize: '18px'
-      }}>
-        Loading...
+      <div className="loading-screen">
+        <div className="loading-card glass-panel">
+          <div className="app-loader" aria-hidden="true"></div>
+          <p>Restoring your Quizly workspace...</p>
+        </div>
       </div>
     );
   }

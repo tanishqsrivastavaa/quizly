@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap");
+
 :root {
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -11,10 +13,20 @@ body,
   min-height: 100svh;
 }
 
-#root {
-  width: 100%;
+html {
+  scroll-behavior: smooth;
 }
 
-a {
-  color: inherit;
+body {
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100%;
+  isolation: isolate;
+}
+
+::selection {
+  background: rgba(107, 231, 255, 0.32);
+  color: var(--text-primary);
 }
