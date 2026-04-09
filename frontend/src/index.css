@@ -27,6 +27,6 @@ body {
 }
 
 ::selection {
-  background: rgba(107, 231, 255, 0.32);
+  background: rgba(192, 204, 194, 0.32);
   color: var(--text-primary);
 }

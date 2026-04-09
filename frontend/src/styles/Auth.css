@@ -90,9 +90,9 @@
   width: fit-content;
   padding: 0.5rem 0.85rem;
   border-radius: var(--radius-pill);
-  background: rgba(107, 231, 255, 0.12);
-  border: 1px solid rgba(107, 231, 255, 0.18);
-  color: #c8f8ff;
+  background: rgba(192, 204, 194, 0.12);
+  border: 1px solid rgba(192, 204, 194, 0.18);
+  color: var(--white-marble);
   font-size: 0.76rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -192,12 +192,12 @@
 }
 
 .auth-link a {
-  color: var(--accent-cyan);
+  color: var(--pumice);
   font-weight: 700;
 }
 
 .auth-link a:hover {
-  color: #d4fbff;
+  color: var(--white-marble);
 }
 
 @media (max-width: 980px) {

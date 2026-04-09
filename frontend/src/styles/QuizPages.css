@@ -54,9 +54,9 @@
   width: fit-content;
   padding: 0.48rem 0.82rem;
   border-radius: var(--radius-pill);
-  background: rgba(107, 231, 255, 0.12);
-  border: 1px solid rgba(107, 231, 255, 0.18);
-  color: #caf8ff;
+  background: rgba(192, 204, 194, 0.12);
+  border: 1px solid rgba(192, 204, 194, 0.18);
+  color: var(--white-marble);
   font-size: 0.74rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -362,8 +362,8 @@
   display: grid;
   place-items: center;
   border-radius: 1rem;
-  background: rgba(107, 231, 255, 0.12);
-  color: #caf8ff;
+  background: rgba(192, 204, 194, 0.12);
+  color: var(--white-marble);
 }
 
 .todo-list {

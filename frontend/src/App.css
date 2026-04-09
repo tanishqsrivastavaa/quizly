@@ -10,26 +10,30 @@
   --line-subtle: rgba(255, 255, 255, 0.08);
   --line-strong: rgba(255, 255, 255, 0.16);
 
-  --text-primary: #f5f8ff;
-  --text-secondary: rgba(230, 238, 255, 0.72);
-  --text-tertiary: rgba(205, 219, 243, 0.54);
+  --pumice: #c0ccc2;
+  --white-marble: #e8e8e8;
+  --heavenly-gray: #a9a8ad;
+
+  --text-primary: var(--white-marble);
+  --text-secondary: rgba(192, 204, 194, 0.82);
+  --text-tertiary: rgba(169, 168, 173, 0.78);
   --text-on-accent: #06111f;
 
-  --accent-cyan: #6be7ff;
-  --accent-blue: #6a7cff;
-  --accent-violet: #9b7bff;
+  --accent-cyan: #d7e5db;
+  --accent-blue: #c0ccc2;
+  --accent-violet: #a9a8ad;
   --accent-green: #59f2b6;
   --accent-amber: #ffcb70;
   --accent-red: #ff6f91;
 
   --gradient-primary: linear-gradient(135deg, var(--accent-cyan), var(--accent-violet));
-  --gradient-secondary: linear-gradient(135deg, rgba(107, 231, 255, 0.22), rgba(155, 123, 255, 0.18));
-  --gradient-success: linear-gradient(135deg, rgba(89, 242, 182, 0.22), rgba(107, 231, 255, 0.2));
-  --gradient-danger: linear-gradient(135deg, rgba(255, 111, 145, 0.22), rgba(255, 203, 112, 0.14));
+  --gradient-secondary: linear-gradient(135deg, rgba(192, 204, 194, 0.22), rgba(169, 168, 173, 0.18));
+  --gradient-success: linear-gradient(135deg, rgba(89, 242, 182, 0.2), rgba(192, 204, 194, 0.18));
+  --gradient-danger: linear-gradient(135deg, rgba(255, 111, 145, 0.18), rgba(169, 168, 173, 0.16));
   --gradient-shell:
-    radial-gradient(circle at top left, rgba(106, 124, 255, 0.3), transparent 32%),
-    radial-gradient(circle at top right, rgba(107, 231, 255, 0.18), transparent 26%),
-    radial-gradient(circle at 20% 80%, rgba(155, 123, 255, 0.16), transparent 28%),
+    radial-gradient(circle at top left, rgba(192, 204, 194, 0.24), transparent 32%),
+    radial-gradient(circle at top right, rgba(232, 232, 232, 0.14), transparent 26%),
+    radial-gradient(circle at 20% 80%, rgba(169, 168, 173, 0.16), transparent 28%),
     linear-gradient(160deg, #040b15 0%, #091325 38%, #040b15 100%);
 
   --success: #6cf3bd;
@@ -89,7 +93,7 @@ body::before {
   left: -100px;
   width: 320px;
   height: 320px;
-  background: rgba(107, 231, 255, 0.18);
+  background: rgba(192, 204, 194, 0.18);
 }
 
 body::after {
@@ -97,7 +101,7 @@ body::after {
   bottom: -120px;
   width: 360px;
   height: 360px;
-  background: rgba(155, 123, 255, 0.16);
+  background: rgba(169, 168, 173, 0.14);
 }
 
 h1,
@@ -158,9 +162,9 @@ input:focus,
 textarea:focus,
 select:focus {
   outline: none;
-  border-color: rgba(107, 231, 255, 0.45);
+  border-color: rgba(192, 204, 194, 0.45);
   background: var(--bg-input-focus);
-  box-shadow: 0 0 0 4px rgba(107, 231, 255, 0.12);
+  box-shadow: 0 0 0 4px rgba(192, 204, 194, 0.12);
 }
 
 button,
@@ -251,7 +255,7 @@ button:active:not(:disabled),
 
 .btn-secondary:hover:not(:disabled) {
   background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(107, 231, 255, 0.32);
+  border-color: rgba(192, 204, 194, 0.32);
   box-shadow: var(--shadow-soft);
 }
 
@@ -363,11 +367,11 @@ button:active:not(:disabled),
 
 @keyframes pulse-ring {
   0% {
-    box-shadow: 0 0 0 0 rgba(107, 231, 255, 0.26);
+    box-shadow: 0 0 0 0 rgba(192, 204, 194, 0.26);
   }
 
   100% {
-    box-shadow: 0 0 0 18px rgba(107, 231, 255, 0);
+    box-shadow: 0 0 0 18px rgba(192, 204, 194, 0);
   }
 }
 
