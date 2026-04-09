@@ -142,7 +142,7 @@ const DocumentQuiz: React.FC = () => {
       <div className="page-header">
         <h1>Document-Based Quiz</h1>
         <p className="page-description">
-          Upload a PDF and quiz yourself on its content
+          Quiz yourself on PDF content
         </p>
       </div>
 

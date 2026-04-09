@@ -60,7 +60,7 @@ const Todos: React.FC = () => {
       <div className="page-header">
         <h1>Future Features</h1>
         <p className="page-description">
-          Exciting features planned for Quizly
+          Planned improvements
         </p>
       </div>
 

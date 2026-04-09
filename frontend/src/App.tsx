@@ -26,7 +26,7 @@ function App() {
               </ProtectedRoute>
             }
           >
-            <Route index element={<Home />} />
+            <Route index element={<TopicQuiz />} />
             <Route path="topic-quiz" element={<TopicQuiz />} />
             <Route path="document-quiz" element={<DocumentQuiz />} />
             <Route path="todos" element={<Todos />} />

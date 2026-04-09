@@ -45,7 +45,7 @@ const TopicQuiz: React.FC = () => {
       <div className="page-header">
         <h1>Topic-Specific Quiz</h1>
         <p className="page-description">
-          Learn any subject through interactive Socratic questioning
+          Learn through interactive questions
         </p>
       </div>
 
