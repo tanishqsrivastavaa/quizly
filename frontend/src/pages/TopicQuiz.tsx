@@ -94,7 +94,7 @@ const TopicQuiz: React.FC = () => {
           >
             {loading ? (
               <>
-                <span className="spinner"></span>
+                <span className="loader" aria-hidden="true"></span>
                 Starting Quiz...
               </>
             ) : (

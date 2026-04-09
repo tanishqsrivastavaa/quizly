@@ -86,7 +86,7 @@ const Quiz: React.FC = () => {
     return (
       <div className="quiz-container">
         <div className="loading-container">
-          <div className="spinner-large"></div>
+          <div className="loader" aria-hidden="true"></div>
           <p>Loading quiz session...</p>
         </div>
       </div>

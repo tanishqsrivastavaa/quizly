@@ -171,7 +171,7 @@ const DocumentQuiz: React.FC = () => {
                 </svg>
                 {uploading ? (
                   <div className="upload-status">
-                    <span className="spinner"></span>
+                    <div className="loader loader-small" aria-hidden="true"></div>
                     <p>{uploadProgress}</p>
                   </div>
                 ) : (
@@ -210,7 +210,7 @@ const DocumentQuiz: React.FC = () => {
           >
             {loading ? (
               <>
-                <span className="spinner"></span>
+                <span className="loader" aria-hidden="true"></span>
                 Starting Quiz...
               </>
             ) : (
