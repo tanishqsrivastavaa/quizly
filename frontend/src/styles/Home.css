@@ -1,19 +1,19 @@
 .home-container {
   min-height: 100vh;
-  background-color: var(--bg-color);
+  background-color: var(--bg);
 }
 
 .home-header {
-  background: white;
+  background: var(--surface-strong);
   padding: 1.5rem 2rem;
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-sm);
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .home-header h1 {
-  color: var(--primary-color);
+  color: var(--text);
   font-size: 1.75rem;
 }
 
@@ -24,7 +24,7 @@
 }
 
 .user-info span {
-  color: var(--text-secondary);
+  color: var(--text-muted);
 }
 
 .home-main {
@@ -41,25 +41,26 @@
 .welcome-section h2 {
   font-size: 2rem;
   margin-bottom: 0.5rem;
-  color: var(--text-primary);
+  color: var(--text);
 }
 
 .welcome-section p {
   font-size: 1.1rem;
-  color: var(--text-secondary);
+  color: var(--text-muted);
 }
 
 .quiz-setup {
-  background: white;
+  background: var(--surface-strong);
   padding: 2.5rem;
-  border-radius: 16px;
-  box-shadow: var(--shadow-lg);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-md);
 }
 
 .quiz-setup h3 {
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
-  color: var(--text-primary);
+  color: var(--text);
 }
 
 .mode-selector {
@@ -71,25 +72,25 @@
 
 .mode-btn {
   padding: 1rem;
-  border: 2px solid var(--border-color);
-  background: white;
-  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.72);
+  border-radius: var(--radius-sm);
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
-  color: var(--text-secondary);
+  color: var(--text-muted);
 }
 
 .mode-btn:hover {
-  border-color: var(--primary-color);
-  color: var(--primary-color);
+  border-color: rgba(25, 24, 59, 0.22);
+  color: var(--text);
 }
 
 .mode-btn.active {
-  border-color: var(--primary-color);
-  background-color: var(--primary-color);
-  color: white;
+  border-color: transparent;
+  background-color: var(--ink);
+  color: var(--mist);
 }
 
 .quiz-config {
@@ -100,21 +101,23 @@
   display: block;
   margin-bottom: 0.75rem;
   font-weight: 500;
-  color: var(--text-primary);
+  color: var(--text);
 }
 
 .topic-input {
   width: 100%;
   padding: 0.875rem 1rem;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
   font-size: 1rem;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.8);
 }
 
 .topic-input:focus {
   outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  border-color: rgba(25, 24, 59, 0.3);
+  box-shadow: 0 0 0 4px rgba(25, 24, 59, 0.08);
 }
 
 .document-upload {
@@ -133,16 +136,18 @@
 .document-select {
   width: 100%;
   padding: 0.875rem 1rem;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
   font-size: 1rem;
   margin-top: 0.5rem;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.8);
 }
 
 .document-select:focus {
   outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  border-color: rgba(25, 24, 59, 0.3);
+  box-shadow: 0 0 0 4px rgba(25, 24, 59, 0.08);
 }
 
 .quiz-setup button[type="button"]:last-child,

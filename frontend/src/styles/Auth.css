@@ -1,78 +1,88 @@
 .auth-container {
-  min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 2rem 1rem;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(161, 194, 189, 0.48), transparent 34%),
+    radial-gradient(circle at 100% 100%, rgba(112, 137, 147, 0.24), transparent 37%),
+    var(--bg);
 }
 
 .auth-card {
-  background: var(--card-bg);
-  padding: 2rem;
-  border-radius: 12px;
+  background: rgba(249, 252, 251, 0.85);
+  padding: 1.8rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
   box-shadow: var(--shadow-lg);
   width: 100%;
-  max-width: 400px;
+  max-width: 430px;
+  backdrop-filter: blur(12px);
 }
 
 .auth-card h1 {
   text-align: center;
-  color: var(--primary-color);
+  color: var(--text);
   margin-bottom: 0.5rem;
-  font-size: 1.75rem;
-  font-weight: 500;
+  font-size: 1.9rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
 }
 
 .auth-card h2 {
   text-align: center;
-  color: var(--text-primary);
-  margin-bottom: 1.75rem;
-  font-size: 1.25rem;
-  font-weight: 500;
+  color: var(--text-muted);
+  margin-bottom: 1.4rem;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0;
 }
 
 .form-group {
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 0.5rem;
-  color: var(--text-primary);
-  font-weight: 500;
-  font-size: 0.875rem;
+  margin-bottom: 0.45rem;
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.84rem;
 }
 
 .form-group input {
   width: 100%;
-  padding: 0.625rem 0.875rem;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  font-size: 0.9375rem;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  font-size: 0.93rem;
   transition: all 0.2s;
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--text);
 }
 
 .form-group input:focus {
   outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  border-color: rgba(25, 24, 59, 0.35);
+  box-shadow: 0 0 0 4px rgba(25, 24, 59, 0.08);
 }
 
 .auth-card button[type="submit"] {
   width: 100%;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
 }
 
 .auth-link {
   text-align: center;
-  margin-top: 1.25rem;
-  color: var(--text-secondary);
-  font-size: 0.875rem;
+  margin-top: 1.05rem;
+  color: var(--text-muted);
+  font-size: 0.83rem;
+  font-weight: 500;
 }
 
 .auth-link a {
-  color: var(--primary-color);
+  color: var(--text);
   text-decoration: none;
   font-weight: 600;
 }
